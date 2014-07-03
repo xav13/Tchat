@@ -1,0 +1,45 @@
+<div class ="container">    
+    <h1>S'enregistrer</h1>
+    <form method="POST" action="home?action=inscription">
+       <label>Login : <input name="login" id="login" type="text"/></label>
+       <?php if (isset($this->messageerrinsc['login'])) :?>
+       <span class ="erreurform"><?=$this->messageerrinsc['login']; ?></span>
+       <?php endif;?>
+       <label>Mot de passe : <input name="password" id="password" type="password"/></label>
+       <?php if (isset($this->messageerrinsc['password'])) :?>
+       <span class ="erreurform"><?=$this->messageerrinsc['password']; ?></span>
+       <?php endif;?>
+       <input type ='submit' value = "s'inscrire" class = "btn btn-warning" />
+    </form>
+    
+<?php if (FALSE == ($this->auth)) {?>
+	    <h1>Login</h1>
+	    <form method="POST" action="home?action=login">
+	       <label>Login : <input name="login" id="login" type="text"/></label>
+	       <?php if (isset($this->messageerrlog['login'])) :?>
+	       <span class ="erreurform"><?=$this->messageerrlog['login']; ?></span>
+	       <?php endif;?>
+	       <label>Mot de passe : <input name="password" id="password" type="password"/></label>
+	       <?php if (isset($this->messageerrlog['password'])) :?>
+	       <span class ="erreurform"><?=$this->messageerrlog['password']; ?></span>
+	       <?php endif;?>
+	       <input type ='submit' value = "se loger" class = "btn btn-success"/>
+	    </form>
+	
+	    <?php if (!empty($this->errMessages)) {
+		    	echo '<ul>';
+		    	foreach ($this->errMessages as $value) {
+					echo '<li>' . $value . '</li>';
+		    	}
+		    	echo '</ul>';
+			}
+		?>	
+<?php }else{ ?>
+	<h1>Bienvenu <?= $this->auth['login'];?></h1>
+	<a href = "/tchat"class= "btn btn-warning">Tchat</a>
+	<a href = "/manager"class= "btn btn-warning">Manager</a>	
+    <a href="/home?action=logout" class= "btn btn-danger">Déconnexion</a>
+<?php }?>
+
+</div>
+	

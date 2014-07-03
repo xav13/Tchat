@@ -1,0 +1,49 @@
+﻿<div class="container">	
+	<H2> Bienvenu dans l'espace de Tchat <?= $this->auth['login'];?></H2>
+	
+	<a href = "tchat?action=listeMessages" class= "btn btn-warning">Liste des messages</a>
+	<a href = "tchat?action=listeUsers" class= "btn btn-warning">Liste des utilisateurs connectes</a>
+	<a href = "home" class= "btn btn-danger">Retour à l'acceuil</a>	 
+	
+	<?php if (!empty($this->messages)) :
+			foreach ($this->messages as $message) :	
+	?>
+			<div class="container">
+			<h4><?= $message['login'];?></h4>
+			<p> <?= ($message['create_date']. " : ".$message['message']);?>
+			<a href = tchatuser?action=mescouilles&id=<?=$message['user_id_exp'] ?>> Discuter </a>
+			</div>
+			
+	<?php 	endforeach ?>
+		<br><a href = "tchat" class= "btn btn-warning">Masquer les messages</a>
+	<?php endif;?>
+	
+	<?php if (isset($this->afflisteUsers) && $this->afflisteUsers == true) :
+			foreach ($this->usersToSend as $user) :	
+	?>
+			<div class="container">
+			<p>
+			 <?= $user['login'];?>
+			<a href = tchatuser?action=mescouilles&id=<?=$user['id'] ?>> Discuter </a>
+			</p>
+			</div>
+			
+	<?php 	endforeach ?>
+		<br><a href = "tchat" class= "btn btn-warning">Masquer les utilisateurs</a>
+	<?php endif;?>
+	
+		<h3>Envoyer un message</h3>
+		    <form method="POST" action="tchat?action=envoyerMessage">
+		       <label>Destinataire : <select name="iddest" id="dest">
+		       							<?php foreach ($this->usersToSend as $user) :?>
+		       							<option value = "<?=$user['id']?>"><?=$user['login']; ?></option>
+		       							<?php endforeach;?>
+		       						</select>	 	       
+		       </label>
+		       <label>Message : <textarea name="message" rows = 3 cols = 70 id="message" placeholder="Votre Message"></textarea></label>
+		       <?php if (isset($this->messageerrsend['message'])) :?>
+		       <span class ="erreurform"><?=$this->messageerrsend['message']; ?></span>
+		       <?php endif;?>
+		       <input type ='submit' value = "Envoyer" class = "btn btn-success"/>
+		    </form>
+</div>

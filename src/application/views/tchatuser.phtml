@@ -1,0 +1,37 @@
+<div class = "container">
+	<H2> Discussion avec <?= $this->infosUserDest['login'];?></H2>
+	<p id="iduserdest"><?=$this->infosUserDest['id'];?></p>
+	
+	<?php if (!empty($this->messages)) : ?>
+	<div class="messages">
+	<?php
+			foreach ($this->messages as $key => $message)  : ;	
+	?>
+				<?php if ($message['login'] == $this->auth['login']) :?>
+					<div class= "col-xs-12 col-sm-7  col-sm-offset-5  userexp usertchatmessage">
+						<h4><?= $message['login'];?></h4>
+						<p> <?= ($message['create_date']. " : ".$message['message']);?>
+					</div>
+				<?php else : ?>
+					<div class= "col-xs-12 col-sm-7 userdest usertchatmessage">
+						<h4><?= $message['login'];?></h4>
+						<p> <?= ($message['create_date']. " : ".$message['message']);?>
+					</div>
+				<?php endif;?>				
+	<p class='lastmess'><?=$message['id'];?></p>
+	<?php 	endforeach ?>
+	</div>
+	<?php endif;?>	
+		    <form method="POST" action="tchatUser?action=envoyerMessage&id=<?=$this->infosUserDest['id'];?>">	       
+		       <textarea class ="texteareaEnvoi col-xs-12 col-sm-12 col-md-10 " name="message" rows = 4 cols = 100% id="message" placeholder="Votre Message"></textarea>
+		       <?php if (isset($this->messageerrsend['message'])) :?>
+		       <span class ="erreurform"><?=$this->messageerrsend['message']; ?></span>
+		       <?php endif;?>
+				<div class = "col-xs-12 ">
+					<input type ='submit' value = "Envoyer" class = "btn btn-success"/>
+		    </form>
+				<!-- 	<a href = "tchatuser?action=listemessages&id=<?php //$this->infosUserDest['id'];?>" class= "btn btn-warning">Rafraichir</a> !-->
+					<a id = "rafraichir" onClick = "refresh()"  class= "btn btn-warning">Rafraichir</a>
+					<a href = "tchat" class= "btn btn-danger">Retour</a>
+				</div>
+</div>

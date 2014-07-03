@@ -1,0 +1,17 @@
+	<?php if (!empty($this->messages)) :
+			foreach ($this->messages as $message) :	
+	?>
+				<?php if ($message['login'] == $this->auth['login']) :?>
+					<div class= "col-xs-12 col-sm-8 col-md-6 col-sm-offset-4  userexp usertchatmessage">
+						<h4><?= $message['login'];?></h4>
+						<p> <?= ($message['create_date']. " : ".$message['message']);?>
+					</div>
+				<?php else : ?>
+					<div class= "col-xs-12 col-sm-8 col-md-6 userdest usertchatmessage">
+						<h4><?= $message['login'];?></h4>
+						<p> <?= ($message['create_date']. " : ".$message['message']);?>
+					</div>
+				<?php endif;?>				
+	
+	<?php 	endforeach ?>
+	<?php endif;?>

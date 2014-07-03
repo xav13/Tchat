@@ -1,0 +1,5 @@
+<?php if($this->result == FALSE){?>
+    <p class="bg-danger">ECHEC</p>
+<?php } elseif ($this->result == TRUE) {?>
+    <p class="bg-success">Suppresion de l'utitilisateur : <?= $this->infosUser['login']?></p>
+<?php }?>
